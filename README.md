@@ -134,4 +134,4 @@ docker run -p 8000:8000 webomni-api
 ---
 
 ## 📄 License
-MIT License. Created by [kingmakeruix](https://github.com/kingmakeruix).
+MIT License. Created by [whyst0ne](https://github.com/whyst0ne).
