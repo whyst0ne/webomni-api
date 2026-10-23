@@ -1,137 +1,37 @@
-# 🚀 WebOmni API — Universal Extraction & Web Intelligence Micro-SaaS
+# 🌐 WebOmni API — Universal Web Intelligence, x402 Gateway & MCP Server
 
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.111.0-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg?logo=python)](https://www.python.org/downloads/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg?logo=docker)](https://www.docker.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![OpenAPI 3.1](https://img.shields.io/badge/OpenAPI-3.1-brightgreen.svg)](https://github.com/whyst0ne/webomni-api)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Production-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com/)
+[![x402 Protocol](https://img.shields.io/badge/HTTP%20402-x402%20Base%20USDC-blue.svg)](https://github.com/whyst0ne/webomni-api)
+[![MCP Ready](https://img.shields.io/badge/MCP-JSON--RPC%202.0-orange.svg)](https://modelcontextprotocol.io/)
+[![Sponsor](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-ea4aaa?style=flat&logo=github)](https://github.com/sponsors/whyst0ne)
 
-A high-throughput, low-latency Micro-SaaS API engine built for AI Agents, autonomous scrapers, LLM pipelines, and automated B2B research.
-
----
-
-## ⚡ Key Features
-
-- 📑 **Clean Content & Markdown Extractor**: Strips boilerplate, ads, scripts, and navigation to yield pristine markdown formatted for LLM consumption.
-- 🎯 **Lead & Contact Intelligence**: Automatically scans web pages for email addresses, international phone numbers, and social links (LinkedIn, Twitter/X, GitHub, Discord, Telegram, YouTube).
-- 🔍 **Real-Time Technical SEO Audit**: Evaluates meta title, description, OpenGraph tags, canonicals, H1-H6 hierarchy, viewport tags, and image alt attributes with an algorithmic health score (0-100).
-- 🛡️ **Built-in Resiliency**: Emulates modern desktop user-agents, respects timeouts, and protects against memory exhaustion (5MB max stream cap).
-- 🔌 **RapidAPI & Postman Ready**: Bundled with OpenAPI 3.1 schema for one-click marketplace deployment.
+**WebOmni API** is an autonomous micro-SaaS web intelligence, structured data extraction, smart-contract security scanner, and **HTTP 402 (`x402`) Micro-Payment Gateway** engineered for both human developers and autonomous AI agents.
 
 ---
 
-## 📡 API Endpoints
+## 🚀 Key Endpoints & Agent Capabilities
 
-### 1. Health Check
-```http
-GET /health
-```
-**Response:**
-```json
-{
-  "status": "healthy",
-  "engine": "WebOmni Micro-SaaS API",
-  "version": "1.0.0"
-}
-```
+| Endpoint / Tool | Protocol | Description | Pricing / Access |
+| :--- | :--- | :--- | :--- |
+| `GET /api/v1/extract` | REST / OpenAPI 3.1 | Clean Markdown extraction, metadata scraping & DOM sanitization | Free Tier / API Key |
+| `GET /api/v1/leads` | REST / JSON | Verified B2B tech founder & executive lead enrichment | Free Sample / Commercial |
+| `GET /api/v1/flashloan-signal` | **x402 (`HTTP 402`)** | Live Base & Arbitrum DEX arbitrage spreads + Aave V3 `flashLoanSimple` ABI calldata | **0.05 USDC** (Base) |
+| `POST /api/v1/audit-contract` | **x402 (`HTTP 402`)** | Automated Solidity / Node.js static vulnerability & CWE audit | **0.10 USDC** (Base) |
+| `mcp_agent_server.py` | **MCP (JSON-RPC 2.0)** | Native tool interface (`get_live_flashloan_signals`, `audit_solidity_code`, `get_payment_instructions`) | Claude / Cursor / Agents |
 
 ---
 
-### 2. Extract Clean Text & Markdown
-```http
-POST /v1/extract
-Content-Type: application/json
-
-{
-  "url": "https://example.com",
-  "extract_markdown": true,
-  "include_meta": true
-}
-```
+## 🔗 x402 Machine-to-Machine Payment Flow
+1. **Request Protected Resource:** Call `GET /api/v1/flashloan-signal` without a payment header.
+2. **Receive `HTTP 402 Payment Required`:** Response includes exact Base USDC contract (`0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`) and recipient wallet `0xE5Ab26877172254B72f3AE6DA5789D2468B7B282`.
+3. **Settle On-Chain & Unlock:** Submit the transaction hash via `X-Payment-TxHash: 0x...` to verify the on-chain `Transfer` event log and receive the unlocked payload immediately.
 
 ---
 
-### 3. Extract B2B Leads & Socials
-```http
-POST /v1/leads
-Content-Type: application/json
-
-{
-  "url": "https://company.com"
-}
-```
-**Response:**
-```json
-{
-  "target_url": "https://company.com",
-  "emails": ["contact@company.com", "press@company.com"],
-  "phones": ["+1-800-555-0199"],
-  "social_profiles": {
-    "linkedin": ["https://linkedin.com/company/example"],
-    "twitter": ["https://x.com/example"],
-    "github": ["https://github.com/example"]
-  },
-  "total_leads_found": 5
-}
-```
-
----
-
-### 4. Technical SEO Audit
-```http
-POST /v1/seo
-Content-Type: application/json
-
-{
-  "url": "https://example.com"
-}
-```
-**Response:**
-```json
-{
-  "target_url": "https://example.com",
-  "seo_score": 92,
-  "title": "Example Domain",
-  "meta_description": "...",
-  "headings": {
-    "h1_count": 1,
-    "h2_count": 3
-  },
-  "audit": {
-    "has_title": true,
-    "has_description": true,
-    "has_viewport": true,
-    "missing_alt_images_count": 0
-  }
-}
-```
-
----
-
-## 🛠️ Quickstart
-
-### Run with Python
-```bash
-pip install -r requirements.txt
-uvicorn main:app --host 0.0.0.0 --port 8000
-```
-
-### Run with Docker
-```bash
-docker build -t webomni-api .
-docker run -p 8000:8000 webomni-api
-```
-
----
-
-## 💎 Commercial Monetization Plans (RapidAPI)
-
-| Plan | Price | Monthly Quota | Features |
-|---|---|---|---|
-| **Free Tier** | $0/mo | 100 requests | Rate-limited (5 req/min) |
-| **Pro Tier** | $19/mo | 25,000 requests | Priority processing, unthrottled |
-| **Ultra Tier** | $49/mo | 100,000 requests | Full concurrent access & lead enrichment |
-
----
-
-## 📄 License
-MIT License. Created by [whyst0ne](https://github.com/whyst0ne).
+## 💳 Settlement & Enterprise Licensing
+- **EVM Treasury & x402 Receiver (Base / Arbitrum / Optimism / Polygon / Ethereum):**  
+  `0xE5Ab26877172254B72f3AE6DA5789D2468B7B282`
+- **Companion Products:**  
+  - [Crypto Arbitrage Scanner](https://github.com/whyst0ne/crypto-arbitrage-scanner)  
+  - [B2B Tech Founders Leads Dataset](https://github.com/whyst0ne/b2b-tech-founders-leads)
